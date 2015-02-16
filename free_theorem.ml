@@ -1,3 +1,22 @@
+open Core.Std
+
+(* let slice tm =
+ *   match Pts.open_ tm with
+ *   | Name x ->
+ *   | Lam  of Name.t * 'a * 'a
+ *   | App  of 'a * 'a
+ *   | All  of Name.t * 'a * 'a
+ *   | Type
+ *
+ * let rec free_theorem tm =
+ *   match Pts.open_ tm with
+ *   | Name x ->
+ *   | Lam  of Name.t * 'a * 'a
+ *   | App  of 'a * 'a
+ *   | All  of Name.t * 'a * 'a
+ *   | Type *)
+
+
 
 (*
 F A = forall r. (A -> r) -> r

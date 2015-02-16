@@ -68,6 +68,7 @@ module Name = struct
     let of_string s = t_of_sexp @@ Sexp.of_string s
     let hash (t : t) = Hashtbl.hash t
   end)
+  let freshen (k, x) = (k, Name_value.freshen x)
 end
 
 module Pattern_tc = struct

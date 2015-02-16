@@ -2,7 +2,11 @@ open Core.Std
 
 module Nat : T
 
-module Name : Comparable
+module Name : sig
+  type t
+  include Identifiable with type t := t
+  val freshen : t -> t
+end
 
 module Pattern_tc : sig
   type 'a t = {
