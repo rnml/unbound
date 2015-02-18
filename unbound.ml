@@ -234,7 +234,7 @@ end = struct
 end
 
 module Bind = struct
-  type ('p, 't) t = 'p * 't with compare, sexp
+  type ('p, 't) t = 'p * 't with sexp, compare
 
   let tc (atc : _ Pattern_tc.t) (btc : _ Term_tc.t) : _ Term_tc.t = {
     close = (fun tc l p (a, b) ->

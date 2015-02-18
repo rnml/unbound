@@ -1,6 +1,9 @@
 open Core.Std
 
-module Nat : T
+module Nat : sig
+  type t
+  val zero : t
+end
 
 module Name : sig
   type t
@@ -42,7 +45,7 @@ module Make_name_type (X : sig val module_name : string end) : sig
 end
 
 module Bind : sig
-  type ('p, 't) t with sexp
+  type ('p, 't) t with sexp, compare
   (* TODO: flip argument order for [create] and [expose] so that Pattern comes before
      Term *)
   val create : 'a Term_tc.t -> 'p Pattern_tc.t -> 'p -> 'a -> ('p, 'a) t
@@ -51,21 +54,21 @@ module Bind : sig
 end
 
 module Rebind : sig
-  type ('p1, 'p2) t with sexp
+  type ('p1, 'p2) t with sexp, compare
   val create : 'a Pattern_tc.t -> 'p Pattern_tc.t -> 'p -> 'a -> ('p, 'a) t
   val expose : 'a Pattern_tc.t -> 'p Pattern_tc.t -> ('p, 'a) t -> 'p * 'a
   val tc : 'a Pattern_tc.t -> 'b Pattern_tc.t -> ('a, 'b) t Pattern_tc.t
 end
 
 module Embed : sig
-  type 'p t with sexp
+  type 'p t with sexp, compare
   val create : 'a Term_tc.t -> 'a -> 'a t
   val expose : 'a Term_tc.t -> 'a t -> 'a
   val tc : 'a Term_tc.t -> 'a t Pattern_tc.t
 end
 
 module Rec : sig
-  type 'p t with sexp
+  type 'p t with sexp, compare
   val create : 'a Pattern_tc.t -> 'a -> 'a t
   val expose : 'a Pattern_tc.t -> 'a t -> 'a
   val tc : 'a Pattern_tc.t -> 'a t Pattern_tc.t
