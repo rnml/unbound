@@ -30,6 +30,7 @@ module Term_tc : sig
   }
   val equal : 'a t -> 'a -> 'a -> bool
   val pair  : 'a t -> 'b t -> ('a * 'b) t
+  val map   : 'a t -> (_, 'a, _) Map.t t
   val const : cmp:('a -> 'a -> int) -> 'a t
 end
 

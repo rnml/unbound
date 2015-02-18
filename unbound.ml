@@ -120,6 +120,15 @@ module Term_tc = struct
       fv = (fun (a, b) -> Set.union (ta.fv a) (tb.fv b));
     }
 
+  let map : type a k cmp. a t -> (k, a, cmp) Map.t t = fun t -> {
+      close   = (fun pat_tc i pat map -> Map.map ~f:(t.close pat_tc i pat) map);
+      open_   = (fun pat_tc i pat map -> Map.map ~f:(t.open_ pat_tc i pat) map);
+      compare = Map.compare_direct t.compare;
+      fv = (fun map ->
+        Map.fold map ~init:Name.Set.empty ~f:(fun ~key:_ ~data acc ->
+          Set.union acc (t.fv data)));
+    }
+
   let const : type a. cmp:(a -> a -> int) -> a t = fun ~cmp -> {
       close   = (fun _ _ _ k -> k);
       open_   = (fun _ _ _ k -> k);
