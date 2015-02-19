@@ -11,6 +11,7 @@ MODULES= \
 B=unbound_lib
 T=$B.cmxa
 FOR_PACK_OPT=-for-pack Unbound_lib
+
 ### RULES ##########################################################
 
 SYNTAX_PACKAGES=$(addsuffix .syntax, $(SYNTAX))
