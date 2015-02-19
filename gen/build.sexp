@@ -1,0 +1,6 @@
+((packages  (core))
+ (includes  (..))
+ (libraries (unbound_lib))
+ (syntax    (sexplib bin_prot comparelib variantslib))
+ (modules   (system_f free_theorem pts pts_sexp))
+ (target    (lib unbound_lib_examples)))
