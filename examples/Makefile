@@ -1,8 +1,8 @@
 ### PARAMETERS #####################################################
 
 PACKAGES=core
-INCLUDES= -I ..
-LIBRARIES= unbound_lib
+INCLUDES=-I ..
+LIBRARIES=unbound_lib
 SYNTAX=sexplib bin_prot comparelib variantslib
 
 MODULES= \
@@ -14,6 +14,7 @@ MODULES= \
 B=unbound_lib_examples
 T=$B.cmxa
 FOR_PACK_OPT=-for-pack Unbound_lib_examples
+
 ### RULES ##########################################################
 
 SYNTAX_PACKAGES=$(addsuffix .syntax, $(SYNTAX))
@@ -97,4 +98,3 @@ clean:
 	rm -rf .depend *.o *.a *.cmi *.cmo *.cma *.cmx *.cmxa *.exe
 
 include .depend
-
