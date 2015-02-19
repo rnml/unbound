@@ -1,0 +1,6 @@
+((packages  (core))
+ (includes  ())
+ (libraries ())
+ (syntax    (sexplib bin_prot comparelib variantslib))
+ (modules   (unbound))
+ (target    (lib unbound_lib)))
