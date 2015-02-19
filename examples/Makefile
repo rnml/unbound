@@ -1,16 +1,19 @@
 ### PARAMETERS #####################################################
 
 PACKAGES=core
-INCLUDES=
-LIBRARIES=
+INCLUDES= -I ..
+LIBRARIES= unbound_lib
 SYNTAX=sexplib bin_prot comparelib variantslib
 
 MODULES= \
-  unbound \
+  system_f \
+  free_theorem \
+  pts \
+  pts_sexp \
 
-B=unbound_lib
+B=unbound_lib_examples
 T=$B.cmxa
-FOR_PACK_OPT=-for-pack Unbound_lib
+FOR_PACK_OPT=-for-pack Unbound_lib_examples
 ### RULES ##########################################################
 
 SYNTAX_PACKAGES=$(addsuffix .syntax, $(SYNTAX))

@@ -1,4 +1,5 @@
 open Core.Std
+open Unbound_lib.Unbound
 
 module Kind : sig
   type t =

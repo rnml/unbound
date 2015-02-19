@@ -1,6 +1,5 @@
 open Core.Std
-
-open Unbound
+open Unbound_lib.Unbound
 
 module Kind = struct
   type t =

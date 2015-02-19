@@ -1,6 +1,5 @@
 open Core.Std
-
-open Unbound
+open Unbound_lib.Unbound
 
 module Name = Make_name_type (struct let module_name = "Pts.Name" end)
 
@@ -35,7 +34,7 @@ let rec tc : t Term_tc.t = {
     | All  x -> let tc = Lazy.force bind_tc in tc.fv x
     | Lam  x -> let tc = Lazy.force bind_tc in tc.fv x
     | App  x -> let tc = Lazy.force pair_tc in tc.fv x
-    | Type   -> Unbound.Name.Set.empty
+    | Type   -> Unbound_lib.Unbound.Name.Set.empty
   );
 }
 
