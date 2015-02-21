@@ -98,6 +98,23 @@ module Pattern_tc = struct
       );
       fv = (fun (a, b) -> Set.union (ta.fv a) (tb.fv b));
     }
+
+  let triple : type a b c. a t -> b t -> c t -> (a * b * c) t = fun ta tb tc -> {
+      binders = (fun (a, b, c) -> ta.binders a @ tb.binders b @ tc.binders c);
+      freshen = (fun (a, b, c) -> (ta.freshen a, tb.freshen b, tc.freshen c));
+      close   = (fun t l p (a, b, c) -> (ta.close t l p a, tb.close t l p b, tc.close t l p c));
+      open_   = (fun t l p (a, b, c) -> (ta.open_ t l p a, tb.open_ t l p b, tc.open_ t l p c));
+      compare = (fun (a1, b1, c1) (a2, b2, c2) ->
+        let acmp = ta.compare a1 a2 in
+        if acmp <> 0 then acmp else
+          let bcmp = tb.compare b1 b2 in
+          if bcmp <> 0 then bcmp else
+            tc.compare c1 c2
+      );
+      fv = (fun (a, b, c) ->
+        let (+) = Set.union in
+        ta.fv a + tb.fv b + tc.fv c);
+    }
 end
 
 module Term_tc = struct
@@ -118,6 +135,19 @@ module Term_tc = struct
         if acmp <> 0 then acmp else tb.compare b1 b2
       );
       fv = (fun (a, b) -> Set.union (ta.fv a) (tb.fv b));
+    }
+
+  let triple : type a b c. a t -> b t -> c t -> (a * b * c) t = fun ta tb tc -> {
+      close   = (fun t l p (a, b, c) -> (ta.close t l p a, tb.close t l p b, tc.close t l p c));
+      open_   = (fun t l p (a, b, c) -> (ta.open_ t l p a, tb.open_ t l p b, tc.open_ t l p c));
+      compare = (fun (a1, b1, c1) (a2, b2, c2) ->
+        let acmp = ta.compare a1 a2 in
+        if acmp <> 0 then acmp else
+          let bcmp = tb.compare b1 b2 in
+          if bcmp <> 0 then bcmp else
+            tc.compare c1 c2
+      );
+      fv = (fun (a, b, c) -> let (+) = Set.union in ta.fv a + tb.fv b + tc.fv c);
     }
 
   let map : type a k cmp. a t -> (k, a, cmp) Map.t t = fun t -> {

@@ -22,6 +22,7 @@ module Pattern_tc : sig
   }
   val equal : 'a t -> 'a -> 'a -> bool
   val pair  : 'a t -> 'b t -> ('a * 'b) t
+  val triple : 'a t -> 'b t -> 'c t -> ('a * 'b * 'c) t
 end
 
 module Term_tc : sig
@@ -31,10 +32,11 @@ module Term_tc : sig
     compare : 'a -> 'a -> int;
     fv      : 'a -> Name.Set.t;
   }
-  val equal : 'a t -> 'a -> 'a -> bool
-  val pair  : 'a t -> 'b t -> ('a * 'b) t
-  val map   : 'a t -> (_, 'a, _) Map.t t
-  val const : cmp:('a -> 'a -> int) -> 'a t
+  val equal  : 'a t -> 'a -> 'a -> bool
+  val pair   : 'a t -> 'b t -> ('a * 'b) t
+  val triple : 'a t -> 'b t -> 'c t -> ('a * 'b * 'c) t
+  val map    : 'a t -> (_, 'a, _) Map.t t
+  val const  : cmp:('a -> 'a -> int) -> 'a t
 end
 
 module Make_name_type (X : sig val module_name : string end) : sig
