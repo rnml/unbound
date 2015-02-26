@@ -87,6 +87,17 @@ module Pattern_tc = struct
 
   let equal t a a' = t.compare a a' = 0
 
+  let list : type a. a t -> a list t = fun t -> {
+      binders = (fun xs -> List.concat_map xs ~f:t.binders);
+      freshen = (fun xs -> List.map ~f:t.freshen xs);
+      close   = (fun pat_tc i pat xs -> List.map ~f:(t.close pat_tc i pat) xs);
+      open_   = (fun pat_tc i pat xs -> List.map ~f:(t.open_ pat_tc i pat) xs);
+      compare = (let compare_a = t.compare in <:compare< a list >>);
+      fv = (fun xs ->
+        List.fold xs ~init:Name.Set.empty ~f:(fun acc x ->
+          Set.union acc (t.fv x)));
+    }
+
   let pair : type a b. a t -> b t -> (a * b) t = fun ta tb -> {
       binders = (fun (a, b) -> ta.binders a @ tb.binders b);
       freshen = (fun (a, b) -> (ta.freshen a, tb.freshen b));
@@ -157,6 +168,15 @@ module Term_tc = struct
       fv = (fun map ->
         Map.fold map ~init:Name.Set.empty ~f:(fun ~key:_ ~data acc ->
           Set.union acc (t.fv data)));
+    }
+
+  let list : type a. a t -> a list t = fun t -> {
+      close   = (fun pat_tc i pat xs -> List.map ~f:(t.close pat_tc i pat) xs);
+      open_   = (fun pat_tc i pat xs -> List.map ~f:(t.open_ pat_tc i pat) xs);
+      compare = (let compare_a = t.compare in <:compare< a list >>);
+      fv = (fun xs ->
+        List.fold xs ~init:Name.Set.empty ~f:(fun acc x ->
+          Set.union acc (t.fv x)));
     }
 
   let const : type a. cmp:(a -> a -> int) -> a t = fun ~cmp -> {

@@ -23,6 +23,7 @@ module Pattern_tc : sig
   val equal : 'a t -> 'a -> 'a -> bool
   val pair  : 'a t -> 'b t -> ('a * 'b) t
   val triple : 'a t -> 'b t -> 'c t -> ('a * 'b * 'c) t
+  val list   : 'a t -> 'a list t
 end
 
 module Term_tc : sig
@@ -36,6 +37,7 @@ module Term_tc : sig
   val pair   : 'a t -> 'b t -> ('a * 'b) t
   val triple : 'a t -> 'b t -> 'c t -> ('a * 'b * 'c) t
   val map    : 'a t -> (_, 'a, _) Map.t t
+  val list   : 'a t -> 'a list t
   val const  : cmp:('a -> 'a -> int) -> 'a t
 end
 
