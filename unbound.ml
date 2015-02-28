@@ -300,11 +300,11 @@ module Bind = struct
     fv = (fun (a, b) -> Set.union (atc.fv a) (btc.fv b));
   }
 
-  let create (t : _ Term_tc.t) (ptc : _ Pattern_tc.t) p a =
+  let create (ptc : _ Pattern_tc.t) (t : _ Term_tc.t) p a =
     (p, t.close ptc Nat.zero p a)
 
-  let expose : type p a. a Term_tc.t -> p Pattern_tc.t -> (p, a) t -> p * a =
-    fun t ptc (p, a) ->
+  let expose : type p a. p Pattern_tc.t -> a Term_tc.t -> (p, a) t -> p * a =
+    fun ptc t (p, a) ->
       let p = ptc.freshen p in
       (p, t.open_ ptc Nat.zero p a)
 end

@@ -52,8 +52,8 @@ module Bind : sig
   type ('p, 't) t with sexp, compare
   (* TODO: flip argument order for [create] and [expose] so that Pattern comes before
      Term *)
-  val create : 'a Term_tc.t -> 'p Pattern_tc.t -> 'p -> 'a -> ('p, 'a) t
-  val expose : 'a Term_tc.t -> 'p Pattern_tc.t -> ('p, 'a) t -> 'p * 'a
+  val create : 'p Pattern_tc.t -> 'a Term_tc.t -> 'p -> 'a -> ('p, 'a) t
+  val expose : 'p Pattern_tc.t -> 'a Term_tc.t -> ('p, 'a) t -> 'p * 'a
   val tc : 'a Pattern_tc.t -> 'b Term_tc.t -> ('a, 'b) t Term_tc.t
 end
 
