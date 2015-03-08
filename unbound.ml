@@ -245,7 +245,7 @@ end = struct
     );
     close = (fun _ _ _ x -> x);
     open_ = (fun _ _ _ x -> x);
-    compare;
+    compare = (fun _ _ -> 0); (* names don't matter in patterns *)
     fv = (fun x -> Name.Set.singleton (X.constructor (to_name x)));
   }
 
@@ -274,7 +274,7 @@ end = struct
            else
              t
       );
-    compare;
+    compare; (* names to matter in terms *)
     fv =
       (function
         | Free x -> Name.Set.singleton (X.constructor x)
